@@ -82,6 +82,71 @@
     }
 
     /* Upload area */
+    .import-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e8ecf1;
+    }
+
+    .import-tab {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #8c8c9a;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .import-tab:hover { color: #555; }
+
+    .import-tab.active {
+      color: #4a7cf7;
+      font-weight: 600;
+    }
+
+    .import-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #4a7cf7;
+      border-radius: 1px;
+    }
+
+    .import-panel { display: none; }
+    .import-panel.active { display: block; }
+
+    .paste-area {
+      width: 100%;
+      min-height: 140px;
+      padding: 14px 16px;
+      background: #fafbfd;
+      border: 1px solid #d0d7e2;
+      border-radius: 8px;
+      color: #1a1a2e;
+      font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .paste-area::placeholder { color: #b0b8c4; }
+    .paste-area:focus { border-color: #4a7cf7; box-shadow: 0 0 0 3px rgba(74, 124, 247, 0.1); }
+
+    .paste-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+
     .upload-zone {
       border: 2px dashed #d0d7e2;
       border-radius: 10px;
@@ -517,13 +582,25 @@
 
   <!-- Step 1: Upload -->
   <div class="card">
-    <div class="card-title"><span class="step">1</span> 上传账号信息</div>
-    <div class="card-desc">上传包含账号和角色ID的 TXT 文件，每行格式为：账号 角色ID（空格分隔）</div>
-    <div class="upload-zone" id="uploadZone">
-      <input type="file" id="fileInput" accept=".txt">
-      <div class="icon">&#128196;</div>
-      <div class="main-text">点击或拖拽上传 TXT 文件</div>
-      <div class="sub-text">支持格式：.txt</div>
+    <div class="card-title"><span class="step">1</span> 导入账号信息</div>
+    <div class="card-desc">选择文件上传或手动粘贴，每行格式为：账号 角色ID（空格分隔）</div>
+    <div class="import-tabs">
+      <button class="import-tab active" id="tabFile" onclick="switchTab('file')">文件上传</button>
+      <button class="import-tab" id="tabPaste" onclick="switchTab('paste')">手动粘贴</button>
+    </div>
+    <div class="import-panel active" id="panelFile">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".txt">
+        <div class="icon">&#128196;</div>
+        <div class="main-text">点击或拖拽上传 TXT 文件</div>
+        <div class="sub-text">支持格式：.txt</div>
+      </div>
+    </div>
+    <div class="import-panel" id="panelPaste">
+      <textarea class="paste-area" id="pasteArea" placeholder="请粘贴账号信息，每行一个，格式：账号 角色ID&#10;例如：&#10;123456 252&#10;654321 188"></textarea>
+      <div class="paste-actions">
+        <button class="btn btn-primary" id="pasteBtn">导入</button>
+      </div>
     </div>
     <div id="uploadStatus" style="display:none;"></div>
   </div>
@@ -593,6 +670,8 @@
   const fileInput    = document.getElementById('fileInput');
   const uploadZone   = document.getElementById('uploadZone');
   const uploadStatus = document.getElementById('uploadStatus');
+  const pasteArea    = document.getElementById('pasteArea');
+  const pasteBtn     = document.getElementById('pasteBtn');
   const itemIdInput  = document.getElementById('itemId');
   const itemCntInput = document.getElementById('itemCount');
   const addBtn       = document.getElementById('addBtn');
@@ -603,6 +682,41 @@
   const totalBadge   = document.getElementById('totalBadge');
   const summaryBar   = document.getElementById('summaryBar');
   const pagination   = document.getElementById('pagination');
+
+  // ---- Tab switching ----
+  window.switchTab = function (tab) {
+    document.getElementById('tabFile').classList.toggle('active', tab === 'file');
+    document.getElementById('tabPaste').classList.toggle('active', tab === 'paste');
+    document.getElementById('panelFile').classList.toggle('active', tab === 'file');
+    document.getElementById('panelPaste').classList.toggle('active', tab === 'paste');
+  };
+
+  // ---- Common import logic ----
+  function importText(text, source) {
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    let count = 0;
+    let errorLines = [];
+
+    lines.forEach((line, idx) => {
+      const parts = line.trim().split(/\s+/);
+      if (parts.length >= 2) {
+        accounts.push({ account: parts[0], roleId: parts[1], items: [] });
+        count++;
+      } else {
+        errorLines.push(idx + 1);
+      }
+    });
+
+    let msg = `成功导入 ${count} 条账号信息`;
+    if (errorLines.length) {
+      msg += `，${errorLines.length} 行格式异常已跳过（第 ${errorLines.slice(0, 5).join('、')}${errorLines.length > 5 ? '...' : ''} 行）`;
+    }
+    showStatus('success', msg);
+    currentPage = 1;
+    renderTable();
+    updateButtons();
+    showToast('success', `已导入 ${count} 条账号`);
+  }
 
   // ---- Upload handling ----
   uploadZone.addEventListener('dragover', e => {
@@ -627,33 +741,21 @@
     }
     const reader = new FileReader();
     reader.onload = function (e) {
-      const text = e.target.result;
-      const lines = text.split(/\r?\n/).filter(l => l.trim());
-      let count = 0;
-      let errorLines = [];
-
-      lines.forEach((line, idx) => {
-        const parts = line.trim().split(/\s+/);
-        if (parts.length >= 2) {
-          accounts.push({ account: parts[0], roleId: parts[1], items: [] });
-          count++;
-        } else {
-          errorLines.push(idx + 1);
-        }
-      });
-
-      let msg = `成功导入 ${count} 条账号信息`;
-      if (errorLines.length) {
-        msg += `，${errorLines.length} 行格式异常已跳过（第 ${errorLines.slice(0, 5).join('、')}${errorLines.length > 5 ? '...' : ''} 行）`;
-      }
-      showStatus('success', msg);
-      currentPage = 1;
-      renderTable();
-      updateButtons();
-      showToast('success', `已导入 ${count} 条账号`);
+      importText(e.target.result, 'file');
     };
     reader.readAsText(file);
   }
+
+  // ---- Paste import ----
+  pasteBtn.addEventListener('click', () => {
+    const text = pasteArea.value.trim();
+    if (!text) {
+      showStatus('error', '请先粘贴账号信息');
+      return;
+    }
+    importText(text, 'paste');
+    pasteArea.value = '';
+  });
 
   function showStatus(type, msg) {
     uploadStatus.style.display = 'flex';
