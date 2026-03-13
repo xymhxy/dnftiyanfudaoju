@@ -552,11 +552,213 @@
     }
     .btn-del:hover { opacity: 1; background: rgba(235,87,87,0.08); }
 
+    /* ---- Top-level page tabs ---- */
+    .page-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      border-bottom: 2px solid #e8ecf1;
+      justify-content: center;
+    }
+
+    .page-tab {
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #8c8c9a;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      letter-spacing: 1px;
+    }
+
+    .page-tab:hover { color: #555; }
+
+    .page-tab.active { color: #4a7cf7; }
+
+    .page-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #4a7cf7;
+      border-radius: 1px;
+    }
+
+    .page-panel { display: none; }
+    .page-panel.active { display: block; }
+
+    /* ---- Advanced feature styles ---- */
+    .adv-section {
+      background: #ffffff;
+      border: 1px solid #e8ecf1;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .adv-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adv-section-title .icon {
+      font-size: 20px;
+    }
+
+    .adv-section-desc {
+      font-size: 13px;
+      color: #8c8c9a;
+      margin-bottom: 20px;
+    }
+
+    .adv-step-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adv-step-label .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #4a7cf7;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .query-row {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+      margin-top: 20px;
+    }
+
+    .query-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .query-col label {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .query-col textarea {
+      flex: 1;
+      width: 100%;
+      min-height: 160px;
+      padding: 14px 16px;
+      background: #fafbfd;
+      border: 1px solid #d0d7e2;
+      border-radius: 8px;
+      color: #1a1a2e;
+      font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .query-col textarea::placeholder { color: #b0b8c4; }
+    .query-col textarea:focus { border-color: #4a7cf7; box-shadow: 0 0 0 3px rgba(74, 124, 247, 0.1); }
+
+    .query-col .result-area {
+      flex: 1;
+      width: 100%;
+      min-height: 160px;
+      padding: 14px 16px;
+      background: #f5f7fa;
+      border: 1px solid #e8ecf1;
+      border-radius: 8px;
+      color: #1a1a2e;
+      font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .query-col .result-area.empty {
+      color: #b0b8c4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+    }
+
+    .query-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .query-stats {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #f5f7fa;
+      border: 1px solid #e8ecf1;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .query-stats .num {
+      font-weight: 700;
+      color: #4a7cf7;
+    }
+
+    .query-stats .warn {
+      color: #e08600;
+      font-weight: 600;
+    }
+
+    .btn-copy {
+      background: #8e44ef;
+      color: #ffffff;
+    }
+
+    .btn-copy:hover { background: #7a37d6; }
+
     @media (max-width: 600px) {
       .form-row { flex-direction: column; }
       .btn { width: 100%; }
       .title-actions { flex-direction: column; gap: 6px; }
       .title-actions .btn { width: auto; }
+      .query-row { flex-direction: column; }
+      .page-tab { padding: 12px 20px; font-size: 14px; }
     }
   </style>
 </head>
@@ -569,90 +771,140 @@
     <p>上传账号信息 &rarr; 添加道具 &rarr; 导出发放清单</p>
   </div>
 
-  <!-- Usage Guide -->
-  <div class="guide">
-    <div class="guide-title"><span class="icon-book">&#128214;</span> 使用说明</div>
-    <ol>
-      <li>先导入角色名单 TXT，每行 1 个账号信息，格式是 <span class="highlight">QQ号 角色ID</span>（中间是英文状态的空格）</li>
-      <li>导入后会显示账号数量，确认无误后，即可添加道具</li>
-      <li>非期限道具和期限道具，不要混在一起添加。可以先把 <span class="tag">非期限道具</span> 添加并导出后，点击 <span class="tag">清空所有</span> 重新上传名单 TXT，再添加 <span class="tag">期限道具</span>；期限道具只需要在道具数量后加一个空格写上日期即可，如：<span class="highlight">1 30</span>（中间是英文状态空格）</li>
-      <li>在发放预览处可查看账号与道具信息，点击右侧的 <span class="tag">X</span> 即可删除该账号的发放数据，导出时也会同步删除相应数据</li>
-    </ol>
+  <!-- Top-level page tabs -->
+  <div class="page-tabs">
+    <button class="page-tab active" id="pageTabMain" onclick="switchPageTab('main')">道具发放</button>
+    <button class="page-tab" id="pageTabAdv" onclick="switchPageTab('adv')">高级功能</button>
   </div>
 
-  <!-- Step 1: Upload -->
-  <div class="card">
-    <div class="card-title"><span class="step">1</span> 导入账号信息</div>
-    <div class="card-desc">选择文件上传或手动粘贴，每行格式为：账号 角色ID（空格分隔）</div>
-    <div class="import-tabs">
-      <button class="import-tab active" id="tabFile" onclick="switchTab('file')">文件上传</button>
-      <button class="import-tab" id="tabPaste" onclick="switchTab('paste')">手动粘贴</button>
+  <!-- ========== Page Panel: 道具发放 ========== -->
+  <div class="page-panel active" id="pageMain">
+    <!-- Usage Guide -->
+    <div class="guide">
+      <div class="guide-title"><span class="icon-book">&#128214;</span> 使用说明</div>
+      <ol>
+        <li>先导入角色名单 TXT，每行 1 个账号信息，格式是 <span class="highlight">QQ号 角色ID</span>（中间是英文状态的空格）</li>
+        <li>导入后会显示账号数量，确认无误后，即可添加道具</li>
+        <li>非期限道具和期限道具，不要混在一起添加。可以先把 <span class="tag">非期限道具</span> 添加并导出后，点击 <span class="tag">清空所有</span> 重新上传名单 TXT，再添加 <span class="tag">期限道具</span>；期限道具只需要在道具数量后加一个空格写上日期即可，如：<span class="highlight">1 30</span>（中间是英文状态空格）</li>
+        <li>在发放预览处可查看账号与道具信息，点击右侧的 <span class="tag">X</span> 即可删除该账号的发放数据，导出时也会同步删除相应数据</li>
+      </ol>
     </div>
-    <div class="import-panel active" id="panelFile">
-      <div class="upload-zone" id="uploadZone">
-        <input type="file" id="fileInput" accept=".txt">
+
+    <!-- Step 1: Upload -->
+    <div class="card">
+      <div class="card-title"><span class="step">1</span> 导入账号信息</div>
+      <div class="card-desc">选择文件上传或手动粘贴，每行格式为：账号 角色ID（空格分隔）</div>
+      <div class="import-tabs">
+        <button class="import-tab active" id="tabFile" onclick="switchTab('file')">文件上传</button>
+        <button class="import-tab" id="tabPaste" onclick="switchTab('paste')">手动粘贴</button>
+      </div>
+      <div class="import-panel active" id="panelFile">
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".txt">
+          <div class="icon">&#128196;</div>
+          <div class="main-text">点击或拖拽上传 TXT 文件</div>
+          <div class="sub-text">支持格式：.txt</div>
+        </div>
+      </div>
+      <div class="import-panel" id="panelPaste">
+        <textarea class="paste-area" id="pasteArea" placeholder="请粘贴账号信息，每行一个，格式：账号 角色ID&#10;例如：&#10;123456 252&#10;654321 188"></textarea>
+        <div class="paste-actions">
+          <button class="btn btn-primary" id="pasteBtn">导入</button>
+        </div>
+      </div>
+      <div id="uploadStatus" style="display:none;"></div>
+    </div>
+
+    <!-- Step 2: Add Items -->
+    <div class="card">
+      <div class="card-title"><span class="step">2</span> 添加发放道具</div>
+      <div class="card-desc">输入道具ID和数量后点击确定，可多次添加不同道具</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>道具ID</label>
+          <input type="text" id="itemId" placeholder="请输入需要发放的道具ID">
+        </div>
+        <div class="form-group">
+          <label>道具数量（期限道具就在数量后面加 空格 天数，如1 30）</label>
+          <input type="text" id="itemCount" placeholder="请输入需要发放的道具数量">
+        </div>
+        <div>
+          <button class="btn btn-primary" id="addBtn" disabled>确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Preview -->
+    <div class="card">
+      <div class="card-title">
+        <span class="step">3</span> 发放预览
+        <span class="badge" id="totalBadge" style="display:none;">0</span>
+        <div class="title-actions">
+          <button class="btn btn-clear" id="clearBtn" disabled>清空所有</button>
+          <button class="btn btn-export" id="exportBtn" disabled>导出 TXT</button>
+        </div>
+      </div>
+      <div class="card-desc">确认以下发放清单无误后，点击导出按钮下载 TXT 文件</div>
+      <div class="summary-bar" id="summaryBar" style="display:none;"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40px;">#</th>
+              <th>账号</th>
+              <th>角色ID</th>
+              <th>发放道具</th>
+              <th style="width:50px;"></th>
+            </tr>
+          </thead>
+          <tbody id="previewBody">
+          </tbody>
+        </table>
+        <div class="empty-state" id="emptyState">暂无数据，请先上传账号文件</div>
+      </div>
+      <div class="pagination" id="pagination" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- ========== Page Panel: 高级功能 ========== -->
+  <div class="page-panel" id="pageAdv">
+    <!-- 批量查询角色ID -->
+    <div class="adv-section">
+      <div class="adv-section-title">
+        <span class="icon">&#128269;</span> 批量查询角色ID
+      </div>
+      <div class="adv-section-desc">上传角色名单后，粘贴要查询的 QQ 和角色名称，即可批量查询对应的 QQ 和角色ID</div>
+
+      <!-- Step 1: Upload roster -->
+      <div class="adv-step-label"><span class="num">1</span> 上传角色名单</div>
+      <div class="card-desc" style="margin-bottom: 12px;">格式为每行：<span style="color:#4a7cf7;font-weight:600;">QQ 角色ID 角色名称 角色职业ID 等级</span>（空格分隔）</div>
+      <div class="upload-zone" id="advUploadZone" style="margin-bottom: 0;">
+        <input type="file" id="advFileInput" accept=".txt">
         <div class="icon">&#128196;</div>
-        <div class="main-text">点击或拖拽上传 TXT 文件</div>
-        <div class="sub-text">支持格式：.txt</div>
+        <div class="main-text">点击或拖拽上传角色名单 TXT</div>
+        <div class="sub-text">格式：QQ 角色ID 角色名称 角色职业ID 等级</div>
       </div>
-    </div>
-    <div class="import-panel" id="panelPaste">
-      <textarea class="paste-area" id="pasteArea" placeholder="请粘贴账号信息，每行一个，格式：账号 角色ID&#10;例如：&#10;123456 252&#10;654321 188"></textarea>
-      <div class="paste-actions">
-        <button class="btn btn-primary" id="pasteBtn">导入</button>
-      </div>
-    </div>
-    <div id="uploadStatus" style="display:none;"></div>
-  </div>
+      <div id="advUploadStatus" style="display:none;"></div>
 
-  <!-- Step 2: Add Items -->
-  <div class="card">
-    <div class="card-title"><span class="step">2</span> 添加发放道具</div>
-    <div class="card-desc">输入道具ID和数量后点击确定，可多次添加不同道具</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>道具ID</label>
-        <input type="text" id="itemId" placeholder="请输入需要发放的道具ID">
+      <!-- Step 2: Query -->
+      <div class="adv-step-label" style="margin-top: 24px;"><span class="num">2</span> 粘贴查询内容 &amp; 查看结果</div>
+      <div class="card-desc" style="margin-bottom: 12px;">左侧粘贴要查询的信息，每行一个，格式：<span style="color:#4a7cf7;font-weight:600;">QQ 角色名称</span>（空格分隔），点击查询后右侧显示匹配结果</div>
+      <div class="query-row">
+        <div class="query-col">
+          <label>查询内容（每行：QQ 角色名称）</label>
+          <textarea id="advQueryInput" placeholder="请粘贴查询内容，每行一个&#10;格式：QQ 角色名称&#10;例如：&#10;123456 张三&#10;654321 李四"></textarea>
+        </div>
+        <div class="query-col">
+          <label>查询结果（QQ 角色ID）</label>
+          <div class="result-area empty" id="advResultArea">查询结果将在此显示</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>道具数量（期限道具就在数量后面加 空格 天数，如1 30）</label>
-        <input type="text" id="itemCount" placeholder="请输入需要发放的道具数量">
-      </div>
-      <div>
-        <button class="btn btn-primary" id="addBtn" disabled>确定</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Step 3: Preview -->
-  <div class="card">
-    <div class="card-title">
-      <span class="step">3</span> 发放预览
-      <span class="badge" id="totalBadge" style="display:none;">0</span>
-      <div class="title-actions">
-        <button class="btn btn-clear" id="clearBtn" disabled>清空所有</button>
-        <button class="btn btn-export" id="exportBtn" disabled>导出 TXT</button>
+      <div id="advQueryStats" class="query-stats" style="display:none;"></div>
+      <div class="query-actions">
+        <button class="btn btn-primary" id="advQueryBtn" disabled>查询</button>
+        <button class="btn btn-copy" id="advCopyBtn" disabled>一键复制全部结果</button>
       </div>
     </div>
-    <div class="card-desc">确认以下发放清单无误后，点击导出按钮下载 TXT 文件</div>
-    <div class="summary-bar" id="summaryBar" style="display:none;"></div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:40px;">#</th>
-            <th>账号</th>
-            <th>角色ID</th>
-            <th>发放道具</th>
-            <th style="width:50px;"></th>
-          </tr>
-        </thead>
-        <tbody id="previewBody">
-        </tbody>
-      </table>
-      <div class="empty-state" id="emptyState">暂无数据，请先上传账号文件</div>
-    </div>
-    <div class="pagination" id="pagination" style="display:none;"></div>
   </div>
 </div>
 
@@ -661,8 +913,16 @@
 
 <script>
 (function () {
-  // State
-  let accounts = []; // [{ account, roleId, items: [{ itemId, count }] }]
+  // ============ Page Tab Switching ============
+  window.switchPageTab = function (tab) {
+    document.getElementById('pageTabMain').classList.toggle('active', tab === 'main');
+    document.getElementById('pageTabAdv').classList.toggle('active', tab === 'adv');
+    document.getElementById('pageMain').classList.toggle('active', tab === 'main');
+    document.getElementById('pageAdv').classList.toggle('active', tab === 'adv');
+  };
+
+  // ============ 道具发放 State ============
+  let accounts = [];
   let currentPage = 1;
   const PAGE_SIZE = 20;
 
@@ -683,7 +943,7 @@
   const summaryBar   = document.getElementById('summaryBar');
   const pagination   = document.getElementById('pagination');
 
-  // ---- Tab switching ----
+  // ---- Tab switching (import) ----
   window.switchTab = function (tab) {
     document.getElementById('tabFile').classList.toggle('active', tab === 'file');
     document.getElementById('tabPaste').classList.toggle('active', tab === 'paste');
@@ -796,7 +1056,6 @@
     showToast('success', `已为 ${accounts.length} 个账号添加道具 ${itemId} x${count}`);
   });
 
-  // Enter key support
   itemCntInput.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !addBtn.disabled) addBtn.click();
   });
@@ -811,8 +1070,6 @@
       return;
     }
     summaryBar.style.display = 'flex';
-
-    // Collect all unique item IDs
     const itemIdSet = new Set();
     accounts.forEach(a => a.items.forEach(it => itemIdSet.add(it.itemId)));
     const itemIds = [...itemIdSet];
@@ -865,7 +1122,6 @@
       </tr>`;
     });
     previewBody.innerHTML = html;
-
     renderPagination(totalPages);
   }
 
@@ -878,10 +1134,7 @@
     pagination.style.display = 'flex';
 
     let html = '';
-    // Prev
     html += `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo;</button>`;
-
-    // Page numbers (show at most 7 buttons with ellipsis)
     const pages = getPageNumbers(currentPage, totalPages);
     pages.forEach(p => {
       if (p === '...') {
@@ -890,15 +1143,10 @@
         html += `<button class="page-btn${p === currentPage ? ' active' : ''}" onclick="goPage(${p})">${p}</button>`;
       }
     });
-
-    // Next
     html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>&raquo;</button>`;
-
-    // Info
-    const start = (currentPage - 1) * PAGE_SIZE + 1;
-    const end = Math.min(currentPage * PAGE_SIZE, accounts.length);
-    html += `<span class="page-info">第 ${start}-${end} 条 / 共 ${accounts.length} 条</span>`;
-
+    const s = (currentPage - 1) * PAGE_SIZE + 1;
+    const e = Math.min(currentPage * PAGE_SIZE, accounts.length);
+    html += `<span class="page-info">第 ${s}-${e} 条 / 共 ${accounts.length} 条</span>`;
     pagination.innerHTML = html;
   }
 
@@ -935,7 +1183,6 @@
   // ---- Export ----
   exportBtn.addEventListener('click', () => {
     if (!accounts.length) return;
-
     const lines = [];
     accounts.forEach(a => {
       if (a.items.length === 0) {
@@ -946,7 +1193,6 @@
         });
       }
     });
-
     const content = lines.join('\n');
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url  = URL.createObjectURL(blob);
@@ -987,14 +1233,216 @@
     setTimeout(() => toast.classList.remove('show'), 2500);
   }
 
-  // ---- Helpers ----
   function formatDate() {
     const d = new Date();
     return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
   }
 
-  // Init
   renderTable();
+
+  // ============ 高级功能 — 批量查询角色ID ============
+  let roster = []; // [{ qq, roleId, name, professionId, level }]
+
+  const advFileInput    = document.getElementById('advFileInput');
+  const advUploadZone   = document.getElementById('advUploadZone');
+  const advUploadStatus = document.getElementById('advUploadStatus');
+  const advQueryInput   = document.getElementById('advQueryInput');
+  const advResultArea   = document.getElementById('advResultArea');
+  const advQueryBtn     = document.getElementById('advQueryBtn');
+  const advCopyBtn      = document.getElementById('advCopyBtn');
+  const advQueryStats   = document.getElementById('advQueryStats');
+
+  // Upload roster file
+  advUploadZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    advUploadZone.classList.add('dragover');
+  });
+  advUploadZone.addEventListener('dragleave', () => advUploadZone.classList.remove('dragover'));
+  advUploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    advUploadZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleAdvFile(e.dataTransfer.files[0]);
+  });
+
+  advFileInput.addEventListener('change', () => {
+    if (advFileInput.files.length) handleAdvFile(advFileInput.files[0]);
+  });
+
+  function handleAdvFile(file) {
+    if (!file.name.endsWith('.txt')) {
+      showAdvStatus('error', '请上传 .txt 格式的文件');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      parseRoster(e.target.result);
+    };
+    reader.readAsText(file);
+  }
+
+  function parseRoster(text) {
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    roster = [];
+    let errorLines = [];
+
+    lines.forEach((line, idx) => {
+      const parts = line.trim().split(/\s+/);
+      if (parts.length >= 3) {
+        roster.push({
+          qq: parts[0],
+          roleId: parts[1],
+          name: parts[2],
+          professionId: parts[3] || '',
+          level: parts[4] || ''
+        });
+      } else {
+        errorLines.push(idx + 1);
+      }
+    });
+
+    let msg = `成功加载 ${roster.length} 条角色数据`;
+    if (errorLines.length) {
+      msg += `，${errorLines.length} 行格式异常已跳过`;
+    }
+    showAdvStatus('success', msg);
+    advQueryBtn.disabled = false;
+    showToast('success', `已加载 ${roster.length} 条角色数据`);
+  }
+
+  function showAdvStatus(type, msg) {
+    advUploadStatus.style.display = 'flex';
+    advUploadStatus.className = 'status-bar' + (type === 'error' ? ' error' : '');
+    advUploadStatus.innerHTML = `<span class="dot"></span><span>${msg}</span>`;
+  }
+
+  // Enable query button when roster is loaded and input has content
+  advQueryInput.addEventListener('input', () => {
+    advQueryBtn.disabled = !(roster.length > 0 && advQueryInput.value.trim());
+  });
+
+  // Query logic
+  advQueryBtn.addEventListener('click', () => {
+    const inputText = advQueryInput.value.trim();
+    if (!inputText || !roster.length) return;
+
+    const queryLines = inputText.split(/\r?\n/).filter(l => l.trim());
+    const resultLines = [];   // { html, text, found }
+    let matchCount = 0;
+    let notFoundCount = 0;
+
+    // Build lookup maps
+    const qqNameMap = new Map(); // key: "qq|name" => roster entry
+    const nameMap = new Map();   // key: name => [roster entry]
+
+    roster.forEach(r => {
+      const key = `${r.qq}|${r.name}`;
+      qqNameMap.set(key, r);
+      if (!nameMap.has(r.name)) nameMap.set(r.name, []);
+      nameMap.get(r.name).push(r);
+    });
+
+    queryLines.forEach((line) => {
+      const parts = line.trim().split(/\s+/);
+      let found = false;
+
+      if (parts.length >= 2) {
+        const qq = parts[0];
+        const name = parts.slice(1).join(' ');
+        const key = `${qq}|${name}`;
+
+        if (qqNameMap.has(key)) {
+          const r = qqNameMap.get(key);
+          resultLines.push({ html: escHtml(`${r.qq} ${r.roleId}`), text: `${r.qq} ${r.roleId}`, found: true });
+          found = true;
+        } else {
+          const byName = nameMap.get(name);
+          if (byName) {
+            const exactQQ = byName.find(r => r.qq === qq);
+            if (exactQQ) {
+              resultLines.push({ html: escHtml(`${exactQQ.qq} ${exactQQ.roleId}`), text: `${exactQQ.qq} ${exactQQ.roleId}`, found: true });
+              found = true;
+            }
+          }
+        }
+
+        if (!found) {
+          resultLines.push({
+            html: `${escHtml(line.trim())} <span style="color:#eb5757;font-weight:600;">【该账号查不到】</span>`,
+            text: `${line.trim()} 【该账号查不到】`,
+            found: false
+          });
+          notFoundCount++;
+        } else {
+          matchCount++;
+        }
+      } else if (parts.length === 1) {
+        const input = parts[0];
+        const byName = nameMap.get(input);
+        if (byName && byName.length > 0) {
+          byName.forEach(r => {
+            resultLines.push({ html: escHtml(`${r.qq} ${r.roleId}`), text: `${r.qq} ${r.roleId}`, found: true });
+          });
+          matchCount++;
+          found = true;
+        }
+        if (!found) {
+          resultLines.push({
+            html: `${escHtml(input)} <span style="color:#eb5757;font-weight:600;">【该账号查不到】</span>`,
+            text: `${input} 【该账号查不到】`,
+            found: false
+          });
+          notFoundCount++;
+        }
+      }
+    });
+
+    // Show results (use innerHTML for styled not-found lines)
+    if (resultLines.length > 0) {
+      advResultArea.className = 'result-area';
+      advResultArea.innerHTML = resultLines.map(r => r.html).join('\n');
+      advCopyBtn.disabled = false;
+      // Store plain text for copy
+      advResultArea.dataset.plainText = resultLines.map(r => r.text).join('\n');
+    } else {
+      advResultArea.className = 'result-area empty';
+      advResultArea.innerHTML = '未匹配到任何结果';
+      advCopyBtn.disabled = true;
+      advResultArea.dataset.plainText = '';
+    }
+
+    // Stats
+    advQueryStats.style.display = 'flex';
+    let statsHtml = `查询 <span class="num">${queryLines.length}</span> 条，匹配成功 <span class="num">${matchCount}</span> 条`;
+    if (notFoundCount > 0) {
+      statsHtml += `，<span class="warn">未匹配 ${notFoundCount} 条</span>（已在结果中标红显示）`;
+    }
+    advQueryStats.innerHTML = statsHtml;
+  });
+
+  function escHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // Copy results (use stored plain text)
+  advCopyBtn.addEventListener('click', () => {
+    const text = advResultArea.dataset.plainText || '';
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('success', '已复制全部查询结果到剪贴板');
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('success', '已复制全部查询结果到剪贴板');
+    });
+  });
+
 })();
 </script>
 
